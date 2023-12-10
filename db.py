@@ -57,3 +57,16 @@ def products_all():
       """
    ).fetchall()
    return [dict(row) for row in rows]
+
+def products_create(image_url, title, rating, description, cast, genre):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        INSERT INTO products (image_url, title, rating, description, cast, genre)
+        VALUES (?, ?, ?, ?, ?, ?)
+        RETURNING *
+        """,
+        (image_url, title, rating, description, cast, genre),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
