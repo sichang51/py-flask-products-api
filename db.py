@@ -81,3 +81,16 @@ def products_find_by_id(id):
         id,
     ).fetchone()
     return dict(row)
+
+def products_update_by_id(id, image_url, title, rating, description, cast, genre):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        UPDATE products SET image_url = ?, title = ?, rating = ?, description = ?, cast = ?, genre = ?
+        WHERE id = ?
+        RETURNING *
+        """,
+        (image_url, title, rating, description, cast, genre, id),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
