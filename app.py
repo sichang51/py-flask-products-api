@@ -18,3 +18,7 @@ def create():
     cast = request.form.get("cast")
     genre = request.form.get("genre")
     return db.products_create(image_url, title, rating, description, cast, genre)
+
+@app.route("/products/<id>.json")
+def show(id):
+    return db.products_find_by_id(id)
