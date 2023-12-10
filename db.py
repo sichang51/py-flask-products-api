@@ -94,3 +94,15 @@ def products_update_by_id(id, image_url, title, rating, description, cast, genre
     ).fetchone()
     conn.commit()
     return dict(row)
+
+def products_destroy_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        DELETE from products
+        WHERE id = ?
+        """,
+        id,
+    )
+    conn.commit()
+    return {"message": "Product destroyed successfully"}

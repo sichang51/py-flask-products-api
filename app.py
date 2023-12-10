@@ -32,3 +32,7 @@ def update(id):
     cast = request.form.get("cast")
     genre = request.form.get("genre")
     return db.photos_update_by_id(id, image_url, title, rating, description, cast, genre)
+
+@app.route("/products/<id>.json", methods=["DELETE"])
+def destroy(id):
+    return db.products_destroy_by_id(id)
