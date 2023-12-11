@@ -11,6 +11,7 @@ def list_users():
   return "user example"
 
 @app.route('/products.json')
+@cross_origin()
 def index():
     return db.products_all()
 
